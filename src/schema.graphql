@@ -1,0 +1,17 @@
+type Book {
+  id: String
+  title: String
+  author: String
+}
+
+type BookConnection {
+  edges: [BookEdge]
+}
+
+type BookEdge {
+  node: Book
+}
+
+type Query {
+  books: BookConnection
+}
