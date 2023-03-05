@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b612b8920913ea05f7c1748742e0364d>>
+ * @generated SignedSource<<16df3f8a106c0e814202b88d8a39c01d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,9 +11,14 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 export type BooksQuery$variables = {};
 export type BooksQuery$data = {
-  readonly books: ReadonlyArray<{
-    readonly title: string | null;
-  } | null> | null;
+  readonly books: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly author: string | null;
+        readonly id: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 export type BooksQuery = {
   response: BooksQuery$data;
@@ -25,16 +30,45 @@ var v0 = [
   {
     "alias": null,
     "args": null,
-    "concreteType": "Book",
+    "concreteType": "BookConnection",
     "kind": "LinkedField",
     "name": "books",
-    "plural": true,
+    "plural": false,
     "selections": [
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "title",
+        "concreteType": "BookEdge",
+        "kind": "LinkedField",
+        "name": "edges",
+        "plural": true,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Book",
+            "kind": "LinkedField",
+            "name": "node",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "id",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "author",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ],
@@ -59,16 +93,16 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "d740c73db79b9ae420999a9845ac6299",
+    "cacheID": "e6171ee1ffd6069b33215627dc541ad2",
     "id": null,
     "metadata": {},
     "name": "BooksQuery",
     "operationKind": "query",
-    "text": "query BooksQuery {\n  books {\n    title\n  }\n}\n"
+    "text": "query BooksQuery {\n  books {\n    edges {\n      node {\n        id\n        author\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4e150baa36352c00149a195f3bdc3960";
+(node as any).hash = "7675848a40ac231873f1b9ab86bf47af";
 
 export default node;
