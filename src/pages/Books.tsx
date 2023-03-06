@@ -1,30 +1,32 @@
+import Book from "@/components/Book"
 import { useEffect } from "react"
-import { useQueryLoader } from "react-relay"
+import { useFragment, useQueryLoader } from "react-relay"
 import { graphql } from "relay-runtime"
-import { BooksQuery } from "../../__generated__/BooksQuery.graphql"
+import { Books_BookConnection$key } from "../../__generated__/Books_BookConnection.graphql"
 
 const queryDef = graphql`
-  query BooksQuery {
-    books {
-      edges{
-        node {
-          id
-          author
-        }
+  fragment Books_BookConnection on BookConnection {
+    edges {
+      node {
+        ...Book_data
       }
     }
   }
 `
 
+export default function Books ({queryRef}: {queryRef: Books_BookConnection$key}) {
+  const data = useFragment<Books_BookConnection$key>(queryDef, queryRef)
 
-export default function Books () {
-  const [queryRef, loadQuery, disposeQuery] = useQueryLoader<BooksQuery>(queryDef)
+  if (queryRef == null) {
+    return <>Loading</>
+  }
 
-  useEffect(() => {
-    loadQuery({})
-  })
 
   return <div>
-    Books
+    {data.edges?.map((bookRef, i) => {
+      if (bookRef !== null) {
+        return <Book key={i} queryRef={bookRef.node!} />
+      }
+    })}
   </div>
 }
