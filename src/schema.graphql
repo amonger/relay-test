@@ -1,5 +1,6 @@
 type Book {
   id: String
+  age: String
   title: String
   author: String
 }
